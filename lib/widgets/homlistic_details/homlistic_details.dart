@@ -33,7 +33,7 @@ class HomlisticDetails extends StatelessWidget {
                     vertical: 60,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 44, 73, 120),
+                    color: Color.fromARGB(255, 255, 18, 140),
                   ),
                   child: FadeInText(
                     text:
