@@ -125,7 +125,11 @@ class AppFooter extends StatelessWidget {
             size: iconSize,
           ),
           onPressed: () {
-            launchUrl(Uri.parse('/'));
+            launchUrl(
+              Uri.parse(
+                'https://www.linkedin.com/company/homlistic/about/?viewAsMember=true',
+              ),
+            );
           },
         ),
       ],
