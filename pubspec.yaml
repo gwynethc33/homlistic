@@ -30,11 +30,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  url_launcher: ^6.1.7
+  carousel_slider: ^5.1.1
+  http: ^1.4.0
+  flutter_dotenv: ^5.0.2
+  mailer: ^6.3.0
+  logging: ^1.1.0
+  font_awesome_flutter: ^10.7.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   sticky_headers: ^0.3.0+2
+
 
 dev_dependencies:
   flutter_test:
@@ -62,8 +70,17 @@ flutter:
   assets:
     - assets/logo.png
     - assets/front.png
-    - assets/bob.jpg
     - assets/home.png
+    - assets/ad.webp
+    - assets/harlem.png
+    - assets/faq.png
+    - assets/rectory.jpg 
+    - assets/sink.webp 
+    - assets/wooster.jpg 
+    - assets/wooster2.jpg
+    - assets/kitchen.png
+    - assets/bottom.png
+    - assets/footer.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

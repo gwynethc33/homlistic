@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:homlistic/widgets/centered_view/centered_view.dart';
 import 'package:homlistic/widgets/navigation_bar/navigation_bar.dart' as my_nav;
 import 'package:homlistic/widgets/homlistic_details/homlistic_details.dart';
+import 'package:homlistic/widgets/footer/footer.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -53,7 +54,7 @@ class _HomeViewState extends State<HomeView> {
               title: 'FAQ\'S',
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, '/FAQ\'S');
+                Navigator.pushNamed(context, '/faq');
               },
             ),
             _DrawerNavItem(
@@ -83,6 +84,8 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           SliverToBoxAdapter(child: HomlisticDetails()),
+
+          const SliverToBoxAdapter(child: AppFooter()),
         ],
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:homlistic/widgets/centered_view/centered_view.dart';
 import 'package:homlistic/widgets/navigation_bar/navigation_bar.dart' as my_nav;
 import 'package:homlistic/widgets/press_content/press_content.dart';
+import 'package:homlistic/widgets/footer/footer.dart';
 
 class PressPage extends StatefulWidget {
   const PressPage({super.key});
@@ -53,7 +54,7 @@ class _HomeViewState extends State<PressPage> {
               title: 'FAQ\'S',
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, '/FAQ\'S');
+                Navigator.pushNamed(context, '/faq');
               },
             ),
             _DrawerNavItem(
@@ -83,6 +84,7 @@ class _HomeViewState extends State<PressPage> {
             ),
           ),
           SliverToBoxAdapter(child: PressContent()),
+          const SliverToBoxAdapter(child: AppFooter()),
         ],
       ),
     );
