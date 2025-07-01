@@ -8,10 +8,10 @@ class PressPage extends StatefulWidget {
   const PressPage({super.key});
 
   @override
-  State<PressPage> createState() => _HomeViewState();
+  State<PressPage> createState() => _PressPageState();
 }
 
-class _HomeViewState extends State<PressPage> {
+class _PressPageState extends State<PressPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void _openDrawer() {

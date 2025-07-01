@@ -8,10 +8,10 @@ class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
 
   @override
-  State<ContactPage> createState() => _HomeViewState();
+  State<ContactPage> createState() => _ContactViewState();
 }
 
-class _HomeViewState extends State<ContactPage> {
+class _ContactViewState extends State<ContactPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void _openDrawer() {
