@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:homlistic/widgets/fade_in/fade_in.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:homlistic/controller/language_controller.dart';
+import 'package:provider/provider.dart';
 
 class HomlisticDetails extends StatelessWidget {
   const HomlisticDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageController>();
     final screenWidth = MediaQuery.of(context).size.width;
     final double frontImageHeight = screenWidth * 0.4;
     final double homeImageHeight = screenWidth * 0.35;
@@ -46,8 +50,7 @@ class HomlisticDetails extends StatelessWidget {
                 color: const Color.fromARGB(255, 44, 73, 120),
               ),
               child: FadeInText(
-                text:
-                    'Homlistic was founded on a powerful principle: In an industry often clouded by opacity, we lead by honesty and transparency.\n\n As a construction management and general contracting firm operating at the highest level of craftsmanship, Homlistic builds with intention, integrity, and an unwavering respect for both people and process. This belief guides everything Homlistic does.\n\n The name Homlistic—a fusion of home and holistic—captures this philosophy. It speaks to a building experience that’s complete and considered, one that goes far beyond luxury finishes to focus on how every element comes together, seamlessly and beautifully.\n\n The result is not just a home—it’s a work of harmony, where craftsmanship reveals the true beauty within design and brings the vision to life.',
+                text: 'homlistic_description'.tr(),
                 fontSize: textFontSize,
                 color: const Color.fromARGB(255, 255, 255, 255),
               ),
