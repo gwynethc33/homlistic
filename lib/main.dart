@@ -36,24 +36,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<LanguageController>();
-    return MaterialApp(
-      title: 'Homlistic',
-      theme: ThemeData(
-        textTheme: Theme.of(
-          context,
-        ).textTheme.apply(fontFamily: 'Neutraface Text'),
-      ),
-      initialRoute: '/',
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      routes: {
-        '/': (context) => const HomeView(),
-        '/press': (context) => const PressPage(),
-        '/faq': (context) => const FaqPage(),
-        '/contact': (context) => const ContactPage(),
-        //to add more routes add here
+    return Builder(
+      builder: (context) {
+        return MaterialApp(
+          title: 'Homlistic',
+          theme: ThemeData(
+            textTheme: Theme.of(
+              context,
+            ).textTheme.apply(fontFamily: 'Neutraface Text'),
+          ),
+          initialRoute: '/',
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          routes: {
+            '/': (context) => const HomeView(),
+            '/press': (context) => const PressPage(),
+            '/faq': (context) => const FaqPage(),
+            '/contact': (context) => const ContactPage(),
+          },
+        );
       },
     );
   }
