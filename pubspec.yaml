@@ -76,7 +76,6 @@ flutter:
     - assets/ad.webp
     - assets/harlem.png
     - assets/faq.png
-    - assets/bottom.png
     - assets/footer.png
     - assets/translations/
     - assets/Bayside_01.jpg 
@@ -123,6 +122,37 @@ flutter:
     - assets/Wooster_05.jpg 
     - assets/Wooster_06.jpg 
     - assets/Wooster_08.jpg
+    - assets/AD0425_GRT_CHARLAP_2.webp
+    - assets/AD0425_GRT_CHARLAP_3.webp 
+    - assets/AD0425_GRT_CHARLAP_4.webp 
+    - assets/AD0425_GRT_CHARLAP_5.webp 
+    - assets/AD0425_GRT_CHARLAP_6.webp 
+    - assets/AD0425_GRT_CHARLAP_7.webp 
+    - assets/AD0425_GRT_CHARLAP_8.webp 
+    - assets/AD0425_GRT_CHARLAP_9.webp 
+    - assets/AD0425_GRT_CHARLAP_11.webp
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_0-scaled.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_1-scaled.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_2-scaled.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_3-scaled.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_4-scaled.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_5-scaled.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_6-scaled.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_8-scaled.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_9-scaled.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_10.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_11-scaled.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_12-scaled.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_13-scaled.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_14.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_15-scaled.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_16-scaled.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_17-scaled.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_18-scaled.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_19.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_20-scaled.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_2364_col_21.jpg 
+    - assets/harlem-rectory_grt-architects_dezeen_herp2.webp
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
