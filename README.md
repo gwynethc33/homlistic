@@ -1,16 +1,10 @@
-# homlistic
+# Homlistic
 
-A new Flutter project.
+A modern, responsive Flutter app for Homlistic Renovation featuring contact form integration and multi language support.
 
-## Getting Started
+## Features
+Supports English (US), Spanish (ES), Serbian (RS), and Chinese (CN).
+Responsive UI with adaptive layouts for mobile and desktop
+Contact form with mailto integration
+Routes include Home, Press, FAQ, and Contact pages
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
