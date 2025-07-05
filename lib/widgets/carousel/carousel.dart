@@ -1,5 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:homlistic/widgets/translated_text/translated_text.dart';
+import 'package:provider/provider.dart';
+import 'package:homlistic/controller/language_controller.dart';
 
 class CarouselEnlarge extends StatefulWidget {
   const CarouselEnlarge({super.key});
@@ -10,20 +13,53 @@ class CarouselEnlarge extends StatefulWidget {
 
 class _CarouselEnlargeState extends State<CarouselEnlarge> {
   final List<String> images = [
-    'assets/rectory.jpg',
-    'assets/sink.webp',
-    'assets/wooster.jpg',
-    'assets/wooster2.jpg',
-    'assets/kitchen.png',
+    'assets/Bayside_01.jpg',
+    'assets/Bayside_02.jpg',
+    'assets/Bayside_03.jpg',
+    'assets/Bayside_04.jpg',
+    'assets/Bayside_05.jp',
+    'assets/Betty_01.jpg',
+    'assets/Betty_02.jpg',
+    'assets/Betty_03.jpg',
+    'assets/Betty_04.jpg',
+    'assets/bottom.png',
+    'assets/Doris_01.jpg',
+    'assets/Doris_02.jpg',
+    'assets/Doris_03.jpg',
+    'assets/Doris_04.jpg',
+    'assets/E 84th St_Social-24.jpg',
+    'assets/E 84th St_Social-30.jpg',
+    'assets/E 84th St_Social-33.jpg',
+    'assets/E 84th St_Social-37.jpg',
+    'assets/ellen_01.jpg',
+    'assets/ellen_02.jpg',
+    'assets/ellen_03.jpg',
+    'assets/ellen_04.jpg',
+    'assets/ellen_05.jpg',
+    'assets/GregRick_01.jpg',
+    'assets/GregRick_02.jpg',
+    'assets/GregRick_03.jpg',
+    'assets/Kim_01.jpg',
+    'assets/Kim_02.jpg',
+    'assets/Kim_03.jpg',
+    'assets/Visionaire_00.jpg',
+    'assets/Visionaire_01.jpg',
+    'assets/Visionaire_02.jpg',
+    'assets/Visionaire_03.jpg',
+    'assets/Visionaire_04.jpg',
+    'assets/Visionaire_05.jpg',
+    'assets/Visionaire_06.jpg',
+    'assets/Visionaire_07.jpg',
+    'assets/Wooster_01.jpg',
+    'assets/Wooster_02.jpg',
+    'assets/Wooster_03.jpg',
+    'assets/Wooster_04.jpg',
+    'assets/Wooster_05.jpg',
+    'assets/Wooster_06.jpg',
+    'assets/Wooster_08.jpg',
   ];
 
-  final List<String> captions = [
-    '\$1,000 + /sq ft builds\nCLICK TO ENLARGE',
-    '\$1,000 + /sq ft builds\nCLICK TO ENLARGE',
-    '\$350 – \$950/sq ft builds\nCLICK TO ENLARGE ',
-    '\$350 – \$950/sq ft builds \nCLICK TO ENLARGE',
-    '\$1,000 + /sq ft builds\nCLICK TO ENLARGE',
-  ];
+  final List<String> captions = ['carousel.caption1', 'carousel.caption2'];
   int _currentIndex = 0;
 
   double _calculateCarouselHeight(double screenHeight) {
@@ -46,6 +82,7 @@ class _CarouselEnlargeState extends State<CarouselEnlarge> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageController>();
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -123,7 +160,7 @@ class _CarouselEnlargeState extends State<CarouselEnlarge> {
 
         // Caption
         const SizedBox(height: 16),
-        Text(
+        TranslatedText(
           captions[_currentIndex],
           style: TextStyle(
             fontSize: captionFontSize,

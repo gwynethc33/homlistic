@@ -3,9 +3,32 @@ import 'package:homlistic/views/home/home_view.dart';
 import 'package:homlistic/views/press/press_page.dart';
 import 'package:homlistic/views/faq/faq_page.dart';
 import 'package:homlistic/views/contact/contact_page.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:provider/provider.dart';
+import 'package:homlistic/controller/language_controller.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [
+        Locale('en', 'US'),
+        Locale('es', 'ES'),
+        Locale('sr', 'RS'),
+        Locale('zh', 'CN'),
+      ],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en', 'US'),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => LanguageController()),
+        ],
+        child: const MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -13,6 +36,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageController>();
     return MaterialApp(
       title: 'Homlistic',
       theme: ThemeData(
@@ -21,6 +45,9 @@ class MyApp extends StatelessWidget {
         ).textTheme.apply(fontFamily: 'Neutraface Text'),
       ),
       initialRoute: '/',
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       routes: {
         '/': (context) => const HomeView(),
         '/press': (context) => const PressPage(),

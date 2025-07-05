@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:homlistic/controller/language_controller.dart';
+import 'package:homlistic/widgets/translated_text/translated_text.dart';
+import 'package:provider/provider.dart';
 
 class NavigationBar extends StatefulWidget {
   final VoidCallback? onMenuPressed;
@@ -27,16 +30,103 @@ class _NavigationBarState extends State<NavigationBar> {
     return baseSize;
   }
 
+  void _showLanguageModal(BuildContext context, double screenWidth) {
+    final double clampedWidth = screenWidth.clamp(320, 1200);
+
+    final double dialogWidth = clampedWidth < 400
+        ? clampedWidth * 0.9
+        : clampedWidth < 1200
+        ? 400
+        : 700;
+
+    final double baseFontSize = screenWidth < 400
+        ? 14
+        : screenWidth < 900
+        ? 18
+        : screenWidth < 1200
+        ? 22
+        : 30;
+
+    final double titleFontSize = clampedWidth < 400
+        ? 18
+        : clampedWidth < 900
+        ? 22
+        : 30;
+
+    final double optionFontSize = baseFontSize;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        LanguageController controller = context.read<LanguageController>();
+
+        return AlertDialog(
+          title: Text(
+            'Select Language',
+            style: TextStyle(fontSize: titleFontSize),
+          ),
+
+          content: SizedBox(
+            width: dialogWidth,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _LanguageOption(
+                  locale: Locale('en'),
+                  label: '🇺🇸 English',
+                  onPressed: () {
+                    controller.setLocale(context, const Locale('en', 'US'));
+                  },
+                  fontSize: optionFontSize,
+                ),
+                _LanguageOption(
+                  locale: Locale('es', 'ES'),
+                  label: '🇪🇸 Español',
+                  onPressed: () {
+                    controller.setLocale(context, const Locale('es', 'ES'));
+                  },
+                  fontSize: optionFontSize,
+                ),
+
+                _LanguageOption(
+                  locale: Locale('sr'),
+                  label: '🇷🇸 Српски',
+                  onPressed: () {
+                    controller.setLocale(context, const Locale('sr', 'RS'));
+                  },
+                  fontSize: optionFontSize,
+                ),
+                _LanguageOption(
+                  locale: Locale('zh'),
+                  label: '🇨🇳 中文',
+                  onPressed: () {
+                    controller.setLocale(context, const Locale('zh', 'CN'));
+                  },
+                  fontSize: optionFontSize,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final String? currentRoute = ModalRoute.of(context)?.settings.name;
     final double width = MediaQuery.of(context).size.width;
     final bool isLargeScreen = width >= 800;
-    final double logoHeight = width >= 800 ? 100 : 60;
-    final double logoWidth = width >= 800 ? 200 : 150;
+    double iconSize;
+    if (width < 600) {
+      iconSize = 20;
+    } else if (width < 1200) {
+      iconSize = 28;
+    } else {
+      iconSize = 36;
+    }
 
     final double navFontSize = calculateFontSize(width, 18, 25);
-    final double buttonFontSize = calculateFontSize(width, 18, 23);
     final double horizontalPadding = width < 900 ? 20 : 50;
     if (isLargeScreen) {
       return Container(
@@ -46,39 +136,48 @@ class _NavigationBarState extends State<NavigationBar> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: GestureDetector(
-                onTap: () => Navigator.pushNamed(context, '/'),
-                child: SizedBox(
-                  height: logoHeight,
-                  width: logoWidth,
-                  child: Image.asset('assets/logo.png', fit: BoxFit.contain),
-                ),
-              ),
+            _NavBarItem(
+              'homlistic',
+              fontSize: navFontSize + 8,
+              letterSpacing: 3.0,
+              isActive: currentRoute == '/',
+              onTap: () => Navigator.pushNamed(context, '/'),
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
+                IconButton(
+                  icon: Icon(
+                    Icons.language,
+                    color: Colors.black,
+                    size: iconSize,
+                  ),
+                  tooltip: 'Change Language',
+                  onPressed: () => _showLanguageModal(
+                    context,
+                    MediaQuery.of(context).size.width,
+                  ),
+                ),
+                SizedBox(width: horizontalPadding),
                 _NavBarItem(
-                  'PRESS',
+                  'press',
                   fontSize: navFontSize,
                   isActive: currentRoute == '/press',
                   onTap: () => Navigator.pushNamed(context, '/press'),
                 ),
                 SizedBox(width: horizontalPadding + 10),
                 _NavBarItem(
-                  'FAQ\'S',
+                  'faqs',
                   fontSize: navFontSize,
                   isActive: currentRoute == '/faq',
                   onTap: () => Navigator.pushNamed(context, '/faq'),
                 ),
                 SizedBox(width: horizontalPadding + 10),
-                _NavBarItem1(
-                  'CONTACT',
-                  fontSize: buttonFontSize,
-
-                  onPressed: () => Navigator.pushNamed(context, '/contact'),
+                _NavBarItem(
+                  'contact',
+                  fontSize: navFontSize,
+                  isActive: currentRoute == '/contact',
+                  onTap: () => Navigator.pushNamed(context, '/contact'),
                 ),
               ],
             ),
@@ -103,7 +202,16 @@ class _NavigationBarState extends State<NavigationBar> {
               child: SizedBox(
                 height: 40,
                 width: 120,
-                child: Image.asset('assets/logo.png', fit: BoxFit.contain),
+                child: SizedBox(
+                  width: 120,
+                  child: _NavBarItem(
+                    'homlistic',
+                    fontSize: navFontSize, // smaller
+                    letterSpacing: 3.0,
+                    isActive: currentRoute == '/',
+                    onTap: () => Navigator.pushNamed(context, '/'),
+                  ),
+                ),
               ),
             ),
           ],
@@ -113,73 +221,66 @@ class _NavigationBarState extends State<NavigationBar> {
   }
 }
 
-class _NavBarItem1 extends StatelessWidget {
-  final String title;
-  final VoidCallback? onPressed;
+class _NavBarItem extends StatelessWidget {
+  final String titleKey;
+  final VoidCallback? onTap;
+  final bool isActive;
   final double fontSize;
+  final double letterSpacing;
 
-  const _NavBarItem1(this.title, {this.onPressed, this.fontSize = 18});
+  const _NavBarItem(
+    this.titleKey, {
+    this.onTap,
+    this.isActive = false,
+    this.fontSize = 18,
+    this.letterSpacing = 1.0,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(minWidth: 150, minHeight: 60),
-      child: FilledButton(
-        onPressed: onPressed,
-        style: FilledButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 149, 149, 149),
-          foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+    return GestureDetector(
+      onTap: onTap,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: TranslatedText(
+          titleKey,
+          softWrap: false,
+          overflow: TextOverflow.visible,
+          style: TextStyle(
+            fontSize: fontSize,
+            decoration: TextDecoration.none,
+            fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+            letterSpacing: letterSpacing,
           ),
         ),
-        child: Text(title, style: TextStyle(fontSize: fontSize)),
       ),
     );
   }
 }
 
-class _NavBarItem extends StatefulWidget {
-  final String title;
-  final VoidCallback? onTap;
-  final bool isActive;
+class _LanguageOption extends StatelessWidget {
+  final Locale locale;
+  final String label;
   final double fontSize;
+  final VoidCallback? onPressed;
 
-  const _NavBarItem(
-    this.title, {
-    this.onTap,
-    this.isActive = false,
-    this.fontSize = 18,
+  const _LanguageOption({
+    required this.locale,
+    required this.label,
+    this.fontSize = 16,
+    this.onPressed,
   });
 
   @override
-  State<_NavBarItem> createState() => _NavBarItemState();
-}
-
-class _NavBarItemState extends State<_NavBarItem> {
-  bool _isHovering = false;
-
-  @override
   Widget build(BuildContext context) {
-    final bool underline = widget.isActive || _isHovering;
-
-    return MouseRegion(
-      onEnter: (_) => setState(() => _isHovering = true),
-      onExit: (_) => setState(() => _isHovering = false),
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: Text(
-          widget.title,
-          style: TextStyle(
-            fontSize: widget.fontSize,
-            decoration: underline
-                ? TextDecoration.underline
-                : TextDecoration.none,
-            decorationThickness: 2,
-            fontWeight: widget.isActive ? FontWeight.bold : FontWeight.normal,
-          ),
-        ),
-      ),
+    return ListTile(
+      title: Text(label, style: TextStyle(fontSize: fontSize)),
+      onTap: () {
+        if (onPressed != null) {
+          onPressed!();
+        }
+        Navigator.pop(context);
+      },
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:homlistic/widgets/translated_text/translated_text.dart';
 
 class FadeInText extends StatefulWidget {
   final String text;
@@ -48,7 +49,7 @@ class _FadeInState extends State<FadeInText>
   Widget build(BuildContext context) {
     return FadeTransition(
       opacity: _animation,
-      child: Text(
+      child: TranslatedText(
         widget.text,
         textAlign: widget.textAlign,
         style: TextStyle(fontSize: widget.fontSize, color: widget.color),

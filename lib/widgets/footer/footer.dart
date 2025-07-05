@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:homlistic/widgets/translated_text/translated_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:homlistic/controller/language_controller.dart';
+import 'package:provider/provider.dart';
 
 class AppFooter extends StatelessWidget {
   const AppFooter({super.key});
@@ -8,21 +11,15 @@ class AppFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    double fontSize;
-    if (screenWidth < 600) {
-      fontSize = 14;
-    } else if (screenWidth < 1200) {
-      fontSize = 18;
-    } else {
-      fontSize = 26;
-    }
+    context.watch<LanguageController>();
+
     double iconSize;
     if (screenWidth < 600) {
-      iconSize = 14;
+      iconSize = 18;
     } else if (screenWidth < 1200) {
-      iconSize = 20;
+      iconSize = 24;
     } else {
-      iconSize = 30;
+      iconSize = 33;
     }
     double imageHeight;
     if (screenWidth < 600) {
@@ -41,24 +38,38 @@ class AppFooter extends StatelessWidget {
         horizontal: horizontalPadding,
       ),
       width: double.infinity,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: imageHeight,
-            child: _footerImage(imageHeight, context),
-          ),
-          const Spacer(),
-          Row(
-            children: [
-              _contactInfo(fontSize, iconSize, TextAlign.left),
-              const SizedBox(width: 40),
-              _linkedin(iconSize, TextAlign.left),
-            ],
-          ),
-        ],
-      ),
+      child: screenWidth < 600
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: imageHeight,
+                  child: _footerImage(imageHeight, context),
+                ),
+                const SizedBox(height: 20),
+                _contactInfo(context),
+                const SizedBox(height: 20),
+                _linkedin(iconSize, TextAlign.center),
+              ],
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: imageHeight,
+                  child: _footerImage(imageHeight, context),
+                ),
+                const Spacer(),
+                Row(
+                  children: [
+                    _contactInfo(context),
+                    const SizedBox(width: 40),
+                    _linkedin(iconSize, TextAlign.left),
+                  ],
+                ),
+              ],
+            ),
     );
   }
 
@@ -74,27 +85,25 @@ class AppFooter extends StatelessWidget {
     );
   }
 
-  Widget _contactInfo(double fontSize, double iconSize, TextAlign align) {
+  Widget _contactInfo(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    double fontSize = screenWidth < 400 ? 12 : 23;
+    double verticalSpacing = screenWidth < 400 ? 30 : 60;
+    TextAlign align = screenWidth < 600 ? TextAlign.center : TextAlign.left;
+    CrossAxisAlignment crossAxisAlign = align == TextAlign.left
+        ? CrossAxisAlignment.start
+        : CrossAxisAlignment.center;
+
     return Column(
-      crossAxisAlignment: align == TextAlign.left
-          ? CrossAxisAlignment.start
-          : CrossAxisAlignment.center,
+      crossAxisAlignment: crossAxisAlign,
       children: [
-        Text(
-          'CONTACT',
-          style: TextStyle(
-            color: Color.fromARGB(255, 97, 96, 96),
-            fontSize: iconSize * 0.6 + 8,
-            fontWeight: FontWeight.w500,
-          ),
-          textAlign: align,
-        ),
-        SizedBox(height: 8),
-        Text(
-          'inquiry@homlistic.com',
+        SizedBox(height: verticalSpacing),
+        TranslatedText(
+          'footer_copyright',
           style: TextStyle(
             color: const Color.fromARGB(179, 47, 46, 46),
-            fontSize: fontSize - 2,
+            fontSize: fontSize,
           ),
           textAlign: align,
         ),
@@ -108,8 +117,8 @@ class AppFooter extends StatelessWidget {
           ? CrossAxisAlignment.start
           : CrossAxisAlignment.center,
       children: [
-        Text(
-          'SOCIAL',
+        TranslatedText(
+          'footer_social',
           style: TextStyle(
             color: Color.fromARGB(255, 97, 96, 96),
             fontSize: iconSize * 0.6 + 8,

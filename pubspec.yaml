@@ -37,6 +37,8 @@ dependencies:
   mailer: ^6.3.0
   logging: ^1.1.0
   font_awesome_flutter: ^10.7.0
+  easy_localization: ^3.0.7+1
+  provider: ^6.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -53,7 +55,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -68,19 +70,59 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/logo.png
+    - assets/whiteLogo.png
     - assets/front.png
     - assets/home.png
     - assets/ad.webp
     - assets/harlem.png
     - assets/faq.png
-    - assets/rectory.jpg 
-    - assets/sink.webp 
-    - assets/wooster.jpg 
-    - assets/wooster2.jpg
-    - assets/kitchen.png
     - assets/bottom.png
     - assets/footer.png
+    - assets/translations/
+    - assets/Bayside_01.jpg 
+    - assets/Bayside_02.jpg 
+    - assets/Bayside_03.jpg 
+    - assets/Bayside_04.jpg 
+    - assets/Bayside_05.jpg 
+    - assets/Betty_01.jpg 
+    - assets/Betty_02.jpg 
+    - assets/Betty_03.jpg 
+    - assets/Betty_04.jpg 
+    - assets/bottom.png 
+    - assets/Doris_01.jpg 
+    - assets/Doris_02.jpg 
+    - assets/Doris_03.jpg 
+    - assets/Doris_04.jpg 
+    - assets/E 84th St_Social-24.jpg 
+    - assets/E 84th St_Social-30.jpg
+    - assets/E 84th St_Social-33.jpg 
+    - assets/E 84th St_Social-37.jpg 
+    - assets/ellen_01.jpg 
+    - assets/ellen_02.jpg 
+    - assets/ellen_03.jpg 
+    - assets/ellen_04.jpg 
+    - assets/ellen_05.jpg
+    - assets/GregRick_01.jpg 
+    - assets/GregRick_02.jpg 
+    - assets/GregRick_03.jpg
+    - assets/Kim_01.jpg 
+    - assets/Kim_02.jpg 
+    - assets/Kim_03.jpg 
+    - assets/Visionaire_00.jpg 
+    - assets/Visionaire_01.jpg 
+    - assets/Visionaire_02.jpg 
+    - assets/Visionaire_03.jpg 
+    - assets/Visionaire_04.jpg 
+    - assets/Visionaire_05.jpg 
+    - assets/Visionaire_06.jpg 
+    - assets/Visionaire_07.jpg
+    - assets/Wooster_01.jpg 
+    - assets/Wooster_02.jpg 
+    - assets/Wooster_03.jpg 
+    - assets/Wooster_04.jpg 
+    - assets/Wooster_05.jpg 
+    - assets/Wooster_06.jpg 
+    - assets/Wooster_08.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
