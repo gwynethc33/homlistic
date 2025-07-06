@@ -136,7 +136,7 @@ class AppFooter extends StatelessWidget {
           onPressed: () {
             launchUrl(
               Uri.parse(
-                'https://www.linkedin.com/company/homlistic/about/?viewAsMember=true',
+                'https://www.linkedin.com/company/homlistic/?viewAsMember=true',
               ),
             );
           },
