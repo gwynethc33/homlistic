@@ -4,7 +4,7 @@ build-job:
     - homlistic
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
-    - /home/gitlab-runner/dev/flutter/bin/flutter -h
+    - /home/gitlab-runner/dev/flutter/bin/flutter build web
 
 deploy-prod:
   stage: deploy
