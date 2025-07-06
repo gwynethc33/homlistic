@@ -4,6 +4,7 @@ build-job:
     - homlistic
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
+    - flutter -h
 
 deploy-prod:
   stage: deploy
