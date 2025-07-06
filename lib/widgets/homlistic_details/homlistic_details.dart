@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:homlistic/widgets/fade_in/fade_in.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:homlistic/controller/language_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +49,7 @@ class HomlisticDetails extends StatelessWidget {
                 color: const Color.fromARGB(255, 44, 73, 120),
               ),
               child: FadeInText(
-                text: 'homlistic_description'.tr(),
+                text: 'homlistic_description',
                 fontSize: textFontSize,
                 color: const Color.fromARGB(255, 255, 255, 255),
               ),
