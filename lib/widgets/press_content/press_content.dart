@@ -112,7 +112,7 @@ class _PressContentState extends State<PressContent> {
                           child: Stack(
                             children: [
                               Image.asset(
-                                'assets/ad.webp',
+                                'assets/ad.png',
                                 width: imageWidth,
                                 fit: BoxFit.cover,
                               ),
