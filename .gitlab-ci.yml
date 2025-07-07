@@ -3,7 +3,7 @@ build-job:
   tags:
     - homlistic
   script:
-    - echo "Hello v3, $GITLAB_USER_LOGIN!" 
+    - echo "Hello v4, $GITLAB_USER_LOGIN!" 
     - /home/gitlab-runner/dev/flutter/bin/flutter build web
 
 deploy-prod:
