@@ -9,7 +9,7 @@ build-job:
 deploy-prod:
   stage: deploy
   variables:
-    GIT_STRATEGY: clone
+    GIT_STRATEGY: none
   tags:
     - homlistic
   script:
