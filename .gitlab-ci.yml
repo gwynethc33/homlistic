@@ -8,6 +8,8 @@ build-job:
 
 deploy-prod:
   stage: deploy
+  variables:
+    GIT_STRATEGY: clone
   tags:
     - homlistic
   script:
