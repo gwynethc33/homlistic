@@ -238,19 +238,22 @@ class _NavBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: FittedBox(
-        fit: BoxFit.scaleDown,
-        child: TranslatedText(
-          titleKey,
-          softWrap: false,
-          overflow: TextOverflow.visible,
-          style: TextStyle(
-            fontSize: fontSize,
-            decoration: TextDecoration.none,
-            fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
-            letterSpacing: letterSpacing,
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: onTap,
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: TranslatedText(
+            titleKey,
+            softWrap: false,
+            overflow: TextOverflow.visible,
+            style: TextStyle(
+              fontSize: fontSize,
+              decoration: TextDecoration.none,
+              fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+              letterSpacing: letterSpacing,
+            ),
           ),
         ),
       ),

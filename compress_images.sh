@@ -78,6 +78,8 @@ images=(
   "assets/Wooster_05.jpg"
   "assets/Wooster_06.jpg"
   "assets/Wooster_08.jpg"
+  "assets/harlem.png"
+  "assets/ad.png"
 )
 
 

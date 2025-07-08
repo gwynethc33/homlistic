@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:homlistic/widgets/translated_text/translated_text.dart';
 import 'package:provider/provider.dart';
 import 'package:homlistic/controller/language_controller.dart';
+import 'dart:async';
 
 class CarouselEnlarge extends StatefulWidget {
   const CarouselEnlarge({super.key});
@@ -39,7 +40,7 @@ class _CarouselEnlargeState extends State<CarouselEnlarge> {
     'assets_webp/harlem-rectory_grt-architects_dezeen_2364_col_2-scaled.webp',
     'assets_webp/Doris_04.webp',
     'assets_webp/harlem-rectory_grt-architects_dezeen_2364_col_3-scaled.webp',
-    'assets_webp/E 84th St_Social-24.webp', // <- Note spaces, rename these files or fix here
+    'assets_webp/E 84th St_Social-24.webp',
     'assets_webp/harlem-rectory_grt-architects_dezeen_2364_col_4-scaled.webp',
     'assets_webp/E 84th St_Social-30.webp',
     'assets_webp/harlem-rectory_grt-architects_dezeen_2364_col_5-scaled.webp',
@@ -177,12 +178,6 @@ class _CarouselEnlargeState extends State<CarouselEnlarge> {
         : (screenWidth > 800 ? 30 : 20 + (screenWidth - 400) * 0.03);
   }
 
-  double _calculateCarouselWidth(double screenWidth) {
-    return screenWidth * 0.7 < 300
-        ? 300
-        : (screenWidth * 0.7 > 800 ? 800 : screenWidth * 0.7);
-  }
-
   @override
   void initState() {
     super.initState();
@@ -201,7 +196,6 @@ class _CarouselEnlargeState extends State<CarouselEnlarge> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     final carouselHeight = _calculateCarouselHeight(screenHeight);
-    final carouselWidth = _calculateCarouselWidth(screenWidth);
     final captionFontSize = _calculateCaptionFontSize(screenWidth);
 
     return Column(
@@ -210,30 +204,88 @@ class _CarouselEnlargeState extends State<CarouselEnlarge> {
           itemCount: images.length,
           itemBuilder: (context, index, realIndex) {
             return GestureDetector(
-              onTap: () {
+              onTap: () async {
+                final maxDialogWidth = screenWidth * 0.95;
+                final maxDialogHeight = screenHeight * 0.95;
+
+                final imageProvider = AssetImage(images[index]);
+                final completer = Completer<Size>();
+
+                imageProvider
+                    .resolve(const ImageConfiguration())
+                    .addListener(
+                      ImageStreamListener((ImageInfo info, bool _) {
+                        final myImageSize = Size(
+                          info.image.width.toDouble(),
+                          info.image.height.toDouble(),
+                        );
+                        completer.complete(myImageSize);
+                      }),
+                    );
+
+                final imageSize = await completer.future;
+                if (!mounted) return;
+
+                final imageAspectRatio = imageSize.width / imageSize.height;
+                double displayWidth;
+                double displayHeight;
+
+                if (maxDialogWidth / maxDialogHeight > imageAspectRatio) {
+                  // Limited by height
+                  displayHeight = maxDialogHeight;
+                  displayWidth = displayHeight * imageAspectRatio;
+                } else {
+                  // Limited by width
+                  displayWidth = maxDialogWidth;
+                  displayHeight = displayWidth / imageAspectRatio;
+                }
+
                 showDialog(
-                  context: context,
+                  context: this.context,
                   barrierDismissible: true,
                   barrierColor: Colors.black54,
                   builder: (context) {
+                    final iconSize = _getCloseIconSize(screenWidth);
                     return Material(
                       color: Colors.transparent,
                       child: GestureDetector(
                         behavior: HitTestBehavior.opaque,
                         onTap: () => Navigator.of(context).pop(),
-                        child: Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          alignment: Alignment.center,
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image.asset(
-                                images[index],
-                                width: carouselWidth * 0.8,
-                                fit: BoxFit.contain,
-                              ),
+                        child: Center(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Stack(
+                              children: [
+                                SizedBox(
+                                  width: displayWidth,
+                                  height: displayHeight,
+                                  child: Image.asset(
+                                    images[index],
+                                    width: displayWidth,
+                                    height: displayHeight,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 8,
+                                  right: 8,
+                                  child: GestureDetector(
+                                    onTap: () => Navigator.of(context).pop(),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.black54,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      padding: const EdgeInsets.all(6),
+                                      child: Icon(
+                                        Icons.close,
+                                        color: Colors.white,
+                                        size: iconSize,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -285,5 +337,15 @@ class _CarouselEnlargeState extends State<CarouselEnlarge> {
         ),
       ],
     );
+  }
+}
+
+double _getCloseIconSize(double screenWidth) {
+  if (screenWidth > 800) {
+    return 40;
+  } else if (screenWidth > 400) {
+    return 24 + (screenWidth - 400) * 0.04;
+  } else {
+    return 16;
   }
 }

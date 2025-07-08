@@ -40,13 +40,13 @@ class HomlisticDetails extends StatelessWidget {
         ),
 
         ColoredBox(
-          color: const Color.fromARGB(255, 44, 73, 120),
+          color: Color.fromARGB(255, 47, 65, 100),
           child: Center(
             child: Container(
               constraints: const BoxConstraints(maxWidth: 1100),
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 60),
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 44, 73, 120),
+                color: Color.fromARGB(255, 47, 65, 100),
               ),
               child: FadeInText(
                 text: 'homlistic_description',

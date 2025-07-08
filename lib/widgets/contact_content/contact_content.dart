@@ -18,6 +18,7 @@ class _ContactContentState extends State<ContactContent> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController projectTypeController = TextEditingController();
+  final TextEditingController referredByController = TextEditingController();
   final TextEditingController messageController = TextEditingController();
 
   bool isLoading = false;
@@ -34,6 +35,7 @@ class _ContactContentState extends State<ContactContent> {
 Name: ${firstNameController.text} ${lastNameController.text}
 Email: ${emailController.text}
 Phone: ${phoneController.text}
+Referred By: ${referredByController.text}
 
 Message:
 ${messageController.text}
@@ -52,6 +54,7 @@ ${messageController.text}
       lastNameController.clear();
       emailController.clear();
       phoneController.clear();
+      referredByController.clear();
       projectTypeController.clear();
       messageController.clear();
     } else {
@@ -68,6 +71,7 @@ ${messageController.text}
     lastNameController.dispose();
     emailController.dispose();
     phoneController.dispose();
+    referredByController.dispose();
     projectTypeController.dispose();
     messageController.dispose();
     super.dispose();
@@ -146,15 +150,14 @@ ${messageController.text}
     int maxLines = 1,
     required TextEditingController controller,
   }) {
-    final labelFontSize = calculateFontSize(screenWidth, 22, 27);
-    final inputFontSize = calculateFontSize(screenWidth, 22, 27);
+    final textFontSize = calculateFontSize(screenWidth, 22, 27);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TranslatedText(
           labelKey,
-          style: TextStyle(fontSize: labelFontSize, color: Colors.black),
+          style: TextStyle(fontSize: textFontSize, color: Colors.black),
         ),
         const SizedBox(height: 6),
         TextField(
@@ -168,7 +171,7 @@ ${messageController.text}
             border: const UnderlineInputBorder(),
             isDense: true,
           ),
-          style: TextStyle(fontSize: inputFontSize),
+          style: TextStyle(fontSize: textFontSize),
           keyboardType: maxLines > 1
               ? TextInputType.multiline
               : TextInputType.text,
@@ -190,7 +193,7 @@ ${messageController.text}
     final descriptionFontSize = calculateFontSize(screenWidth, 18, 30);
     final titleFontSize = calculateFontSize(screenWidth, 50, 52);
     final buttonFontSize = calculateFontSize(screenWidth, 22, 27);
-    final answerFontSize = calculateFontSize(screenWidth, 16, 22);
+    final answerFontSize = calculateFontSize(screenWidth, 22, 27);
     final iconSize = answerFontSize * 1.2;
 
     final hPadding = calculateHorizontalMargin(screenWidth, min: 20, max: 70);
@@ -265,7 +268,7 @@ ${messageController.text}
                         horizontal: hPadding,
                         vertical: vSpacing * 0.5,
                       ),
-                      color: const Color(0xFF2F4164),
+                      color: Color.fromARGB(255, 47, 65, 100),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.max,
@@ -337,6 +340,13 @@ ${messageController.text}
                             hintKey: 'Residential',
                             screenWidth: screenWidth,
                             controller: projectTypeController,
+                          ),
+                          SizedBox(height: vSpacing * 2),
+                          buildTextField(
+                            'Referred_By',
+                            hintKey: 'Jane_Doe',
+                            screenWidth: screenWidth,
+                            controller: referredByController,
                           ),
                           SizedBox(height: vSpacing * 2),
                           buildTextField(
@@ -479,11 +489,26 @@ ${messageController.text}
                                       ],
                                     ),
                                     SizedBox(height: vSpacing * 2),
-                                    buildTextField(
-                                      'Project Type',
-                                      hintKey: 'Residential',
-                                      controller: projectTypeController,
-                                      screenWidth: screenWidth,
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: buildTextField(
+                                            'Project Type',
+                                            hintKey: 'Residential',
+                                            controller: projectTypeController,
+                                            screenWidth: screenWidth,
+                                          ),
+                                        ),
+                                        SizedBox(width: 20),
+                                        Expanded(
+                                          child: buildTextField(
+                                            'Referred_By',
+                                            hintKey: 'Jane_Doe',
+                                            controller: referredByController,
+                                            screenWidth: screenWidth,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     SizedBox(height: vSpacing * 2),
                                     buildTextField(

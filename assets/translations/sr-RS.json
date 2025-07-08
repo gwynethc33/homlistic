@@ -23,6 +23,8 @@
   "you@example.com": "vi@primer.com",
   "+1 012 3456 789": "+1 012 3456 789",
   "Residential": "Stambeni",
+  "Jane_Doe": "Џејн Доу",
+  "Referred_By": "Препоручио/ла",
   "Write your message...": "Napišite poruku...",
   "faq_header": "KAKO TO RADIMO",
   "faq_description": "Cenimo iskrenost, integritet i odgovornost. Ponosni smo na svoj zanat, profesionalni smo i cenimo svoje ljude.\n\nNaš rad odražava našu tihu posvećenost poverenju, skromnosti i nevidljivoj snazi vrednosti.",
@@ -34,7 +36,7 @@
   "faq_question_fit": "Da li je Homlistic pravi izbor za vaš sledeći projekat?",
   "faq_answer_fit": "Nismo pravi izvođač za svakoga — i smatramo da je to u redu.\n\nU Homlisticu najbolje radimo kada postoji usklađenost: u komunikaciji, očekivanjima i vrednostima. Zato pažljivo biramo sa kim radimo i zašto se trudimo da razumemo šta vam je najvažnije pre nego što uopšte počnemo sa radom.\n\nDobar smo izbor ako ste osoba koja:\n  - Ceni kvalitet više od prečica\n  - Želi transparentnost, a ne nagađanje\n  - Gleda na gradnju kao na partnerstvo, a ne samo transakciju\n  - Ceni dugoročnu perspektivu: zanat, jasne rokove i promišljenu realizaciju\n\nNačin na koji sarađujemo je jednako važan kao i ono što gradimo.",
   "footer_social": "DRUŠTVENE MREŽE",
-  "footer_copyright": "©2025 Homlistic Inc. Sva prava zadržana.",
+  "footer_copyright": "©{year} Homlistic Inc. Sva prava zadržana.",
   "homlistic_description": "Homlistic je osnovan na snažnom principu: u industriji često obavijenoj nejasnoćama, vodimo se iskrenošću i transparentnošću.\n\nKao firma za upravljanje gradnjom i generalni izvođač koji posluje na najvišem nivou zanatske veštine, Homlistic gradi sa namerom, integritetom i nepokolebljivim poštovanjem prema ljudima i procesima. Ovo verovanje usmerava sve što Homlistic radi.\n\nIme Homlistic — spoj reči 'home' (dom) i 'holistic' (holistički) — obuhvata ovu filozofiju. Govori o iskustvu gradnje koje je kompletno i promišljeno, koje daleko prevazilazi luksuzne završne radove, fokusirajući se na to kako se svaki element skladno i lepo uklapa.\n\nRezultat nije samo dom — to je delo harmonije, gde zanat otkriva pravu lepotu dizajna i oživljava viziju.",
   "press_sustainable": "Održivi život od Bruklina do Kjota\nKao što je prikazano u izdanju Architectural Digest-a iz aprila 2025.",
   "press_newyork": "Unutar složenog i zavidnog dizajna tri kuće u Njujorku\nKao što je prikazano u \"T\" magazinu The New York Times Style, septembar 2023."

@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homlistic/controller/language_controller.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AppFooter extends StatelessWidget {
   const AppFooter({super.key});
@@ -99,8 +100,11 @@ class AppFooter extends StatelessWidget {
       crossAxisAlignment: crossAxisAlign,
       children: [
         SizedBox(height: verticalSpacing),
-        TranslatedText(
-          'footer_copyright',
+        Text(
+          tr(
+            'footer_copyright',
+            namedArgs: {'year': DateTime.now().year.toString()},
+          ),
           style: TextStyle(
             color: const Color.fromARGB(179, 47, 46, 46),
             fontSize: fontSize,
