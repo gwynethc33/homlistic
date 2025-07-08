@@ -61,9 +61,15 @@ class _NavigationBarState extends State<NavigationBar> {
         LanguageController controller = context.read<LanguageController>();
 
         return AlertDialog(
-          title: Text(
-            'Select Language',
-            style: TextStyle(fontSize: titleFontSize),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Select Language'),
+              IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
           ),
 
           content: SizedBox(
