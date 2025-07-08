@@ -110,8 +110,16 @@ void _showLanguageModal(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Select Language'),
-
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text('Select Language'),
+            IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
         content: SizedBox(
           child: Column(
             mainAxisSize: MainAxisSize.min,

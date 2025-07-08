@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://homlistic.com/sitemap.xml
+Sitemap: https://www.homlistic.com/sitemap.xml

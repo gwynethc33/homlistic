@@ -31,7 +31,7 @@ class AppFooter extends StatelessWidget {
       imageHeight = 90;
     }
     double horizontalPadding = (screenWidth * 0.05).clamp(16, 50);
-
+    final isMobile = screenWidth < 700;
     return Container(
       color: const Color.fromARGB(255, 255, 255, 255),
       padding: EdgeInsets.symmetric(
@@ -39,7 +39,7 @@ class AppFooter extends StatelessWidget {
         horizontal: horizontalPadding,
       ),
       width: double.infinity,
-      child: screenWidth < 600
+      child: isMobile
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -53,22 +53,18 @@ class AppFooter extends StatelessWidget {
                 _linkedin(iconSize, TextAlign.center),
               ],
             )
-          : Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+          : Wrap(
+              spacing: 40,
+              runSpacing: 20,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              alignment: WrapAlignment.spaceBetween,
               children: [
                 SizedBox(
                   height: imageHeight,
                   child: _footerImage(imageHeight, context),
                 ),
-                const Spacer(),
-                Row(
-                  children: [
-                    _contactInfo(context),
-                    const SizedBox(width: 40),
-                    _linkedin(iconSize, TextAlign.left),
-                  ],
-                ),
+                _contactInfo(context),
+                _linkedin(iconSize, TextAlign.left),
               ],
             ),
     );

@@ -269,18 +269,21 @@ class _CarouselEnlargeState extends State<CarouselEnlarge> {
                                 Positioned(
                                   top: 8,
                                   right: 8,
-                                  child: GestureDetector(
-                                    onTap: () => Navigator.of(context).pop(),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.black54,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      padding: const EdgeInsets.all(6),
-                                      child: Icon(
-                                        Icons.close,
-                                        color: Colors.white,
-                                        size: iconSize,
+                                  child: MouseRegion(
+                                    cursor: SystemMouseCursors.click,
+                                    child: GestureDetector(
+                                      onTap: () => Navigator.of(context).pop(),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.black54,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        padding: const EdgeInsets.all(6),
+                                        child: Icon(
+                                          Icons.close,
+                                          color: Colors.white,
+                                          size: iconSize,
+                                        ),
                                       ),
                                     ),
                                   ),
