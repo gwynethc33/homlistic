@@ -35,7 +35,7 @@ class _ContactContentState extends State<ContactContent> {
 Name: ${firstNameController.text} ${lastNameController.text}
 Email: ${emailController.text}
 Phone: ${phoneController.text}
-Referred By: ${referredByController.text}
+Referred By Name: ${referredByController.text}
 
 Message:
 ${messageController.text}
