@@ -1,3 +1,4 @@
+import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
 import 'package:homlistic/views/home/home_view.dart';
 import 'package:homlistic/views/press/press_page.dart';
@@ -7,9 +8,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 import 'package:homlistic/controller/language_controller.dart';
 
+import 'DependencyInjector.dart';
+import 'api/homlistic_client_service.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
+  try {
+    await EasyLocalization.ensureInitialized();
+  } catch (e) {
+    print('Something really unknown: $e');
+  }
 
   runApp(
     EasyLocalization(
@@ -39,6 +47,9 @@ class MyApp extends StatelessWidget {
     return Builder(
       builder: (context) {
         return MaterialApp(
+          home: DependencyInjector(
+            child: HomeView(),
+          ),
           title: 'Homlistic',
           theme: ThemeData(
             textTheme: Theme.of(
@@ -50,7 +61,7 @@ class MyApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           routes: {
-            '/': (context) => const HomeView(),
+            // '/': (context) => const HomeView(),
             '/press': (context) => const PressPage(),
             '/faq': (context) => const FaqPage(),
             '/contact': (context) => const ContactPage(),

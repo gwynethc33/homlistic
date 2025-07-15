@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:homlistic/widgets/translated_text/translated_text.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:homlistic/controller/language_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
+
+import '../../api/homlistic_client_service.dart';
 
 class ContactContent extends StatefulWidget {
   const ContactContent({super.key});
@@ -24,11 +26,6 @@ class _ContactContentState extends State<ContactContent> {
   bool isLoading = false;
 
   Future<void> sendEmail() async {
-    String encodeBody(String body) {
-      return Uri.encodeComponent(body).replaceAll('+', '%20');
-    }
-
-    final String toEmail = 'homlisticrenovation@gmail.com';
     final String subject = 'Project: ${projectTypeController.text}';
     final String body =
         '''
@@ -40,29 +37,14 @@ Referred By Name: ${referredByController.text}
 Message:
 ${messageController.text}
 ''';
-
-    final String encodedSubject = Uri.encodeComponent(subject);
-    final String encodedBody = encodeBody(body);
-
-    final Uri emailUri = Uri.parse(
-      'mailto:$toEmail?subject=$encodedSubject&body=$encodedBody',
-    );
-
-    if (await canLaunchUrl(emailUri)) {
-      await launchUrl(emailUri);
-      firstNameController.clear();
-      lastNameController.clear();
-      emailController.clear();
-      phoneController.clear();
-      referredByController.clear();
-      projectTypeController.clear();
-      messageController.clear();
-    } else {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Could not open the email client.')),
-      );
-    }
+    await Get.find<HomlisticClientService>().sendContact(subject, body, 'NzBmNDU2YWYtN2YzYy00NmYwLWIzNzktNzcwNjFiMDlmNWI0');
+    firstNameController.clear();
+    lastNameController.clear();
+    emailController.clear();
+    phoneController.clear();
+    referredByController.clear();
+    projectTypeController.clear();
+    messageController.clear();
   }
 
   @override
@@ -91,38 +73,19 @@ ${messageController.text}
     return baseSize;
   }
 
-  double calculateHorizontalMargin(
-    double screenWidth, {
-    double min = 16,
-    double max = 100,
-  }) {
+  double calculateHorizontalMargin(double screenWidth, {double min = 16, double max = 100}) {
     const minWidth = 320;
     const maxWidth = 1200;
-    return min +
-        (max - min) *
-            ((screenWidth.clamp(minWidth, maxWidth) - minWidth) /
-                (maxWidth - minWidth));
+    return min + (max - min) * ((screenWidth.clamp(minWidth, maxWidth) - minWidth) / (maxWidth - minWidth));
   }
 
-  double calculateVerticalSpacing(
-    double screenHeight, {
-    double min = 8,
-    double max = 30,
-  }) {
+  double calculateVerticalSpacing(double screenHeight, {double min = 8, double max = 30}) {
     const minHeight = 600;
     const maxHeight = 1200;
-    return min +
-        (max - min) *
-            ((screenHeight.clamp(minHeight, maxHeight) - minHeight) /
-                (maxHeight - minHeight));
+    return min + (max - min) * ((screenHeight.clamp(minHeight, maxHeight) - minHeight) / (maxHeight - minHeight));
   }
 
-  Widget contactRow(
-    IconData icon,
-    String text, {
-    double fontSize = 16,
-    double iconSize = 24,
-  }) {
+  Widget contactRow(IconData icon, String text, {double fontSize = 16, double iconSize = 24}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -142,14 +105,7 @@ ${messageController.text}
     );
   }
 
-  Widget buildTextField(
-    String labelKey, {
-    String? hintKey,
-
-    required double screenWidth,
-    int maxLines = 1,
-    required TextEditingController controller,
-  }) {
+  Widget buildTextField(String labelKey, {String? hintKey, required double screenWidth, int maxLines = 1, required TextEditingController controller}) {
     final textFontSize = calculateFontSize(screenWidth, 22, 27);
 
     return Column(
@@ -165,19 +121,13 @@ ${messageController.text}
           maxLines: maxLines,
           decoration: InputDecoration(
             hintText: hintKey?.tr(),
-            hintStyle: const TextStyle(
-              color: Color.fromARGB(255, 195, 194, 194),
-            ),
+            hintStyle: const TextStyle(color: Color.fromARGB(255, 195, 194, 194)),
             border: const UnderlineInputBorder(),
             isDense: true,
           ),
           style: TextStyle(fontSize: textFontSize),
-          keyboardType: maxLines > 1
-              ? TextInputType.multiline
-              : TextInputType.text,
-          textInputAction: maxLines > 1
-              ? TextInputAction.newline
-              : TextInputAction.done,
+          keyboardType: maxLines > 1 ? TextInputType.multiline : TextInputType.text,
+          textInputAction: maxLines > 1 ? TextInputAction.newline : TextInputAction.done,
         ),
       ],
     );
@@ -201,10 +151,7 @@ ${messageController.text}
 
     final double minImageSize = 200;
     final double maxImageSize = 500;
-    final double imageSize = (screenWidth * 0.3).clamp(
-      minImageSize,
-      maxImageSize,
-    );
+    final double imageSize = (screenWidth * 0.3).clamp(minImageSize, maxImageSize);
 
     final bool isSmallScreen = screenWidth < 800;
 
@@ -224,11 +171,7 @@ ${messageController.text}
                   alignment: Alignment.centerLeft,
                   child: TranslatedText(
                     'COMPANY INFORMATION',
-                    style: TextStyle(
-                      fontSize: headerFontSize,
-                      fontWeight: FontWeight.w500,
-                      color: const Color.fromARGB(255, 47, 65, 100),
-                    ),
+                    style: TextStyle(fontSize: headerFontSize, fontWeight: FontWeight.w500, color: const Color.fromARGB(255, 47, 65, 100)),
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -237,37 +180,23 @@ ${messageController.text}
             SizedBox(height: vSpacing * 2.5),
             ColoredBox(color: Colors.white),
             Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: hPadding,
-                vertical: vSpacing * 1.5,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: hPadding, vertical: vSpacing * 1.5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TranslatedText(
                     'Let\'s Start a Conversation',
-                    style: TextStyle(
-                      fontSize: titleFontSize,
-                      fontWeight: FontWeight.w500,
-                      color: const Color.fromARGB(255, 47, 65, 100),
-                    ),
+                    style: TextStyle(fontSize: titleFontSize, fontWeight: FontWeight.w500, color: const Color.fromARGB(255, 47, 65, 100)),
                   ),
                   SizedBox(height: vSpacing * 3),
                   TranslatedText(
                     'Every build is a partnership. That’s why we work best with clients who value clarity, collaboration, and mutual respect. When the alignment is right, the results speak for themselves.\nBy choosing to work with Homlistic, you acknowledge our commitment to quality and the belief that how we work together matters just as much as what we build.',
-                    style: TextStyle(
-                      height: 1.5,
-                      fontSize: descriptionFontSize,
-                      color: const Color.fromARGB(255, 120, 115, 115),
-                    ),
+                    style: TextStyle(height: 1.5, fontSize: descriptionFontSize, color: const Color.fromARGB(255, 120, 115, 115)),
                   ),
                   SizedBox(height: vSpacing * 2.5),
                   if (isSmallScreen) ...[
                     Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: hPadding,
-                        vertical: vSpacing * 0.5,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: hPadding, vertical: vSpacing * 0.5),
                       color: Color.fromARGB(255, 47, 65, 100),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -276,18 +205,10 @@ ${messageController.text}
                         children: [
                           SizedBox(
                             width: imageSize,
-                            child: Image.asset(
-                              'assets/whiteLogo.png',
-                              fit: BoxFit.contain,
-                            ),
+                            child: Image.asset('assets/whiteLogo.png', fit: BoxFit.contain),
                           ),
                           SizedBox(height: vSpacing),
-                          contactRow(
-                            Icons.phone,
-                            '646 - 458 - 0010',
-                            iconSize: iconSize,
-                            fontSize: answerFontSize,
-                          ),
+                          contactRow(Icons.phone, '646 - 458 - 0010', iconSize: iconSize, fontSize: answerFontSize),
                           SizedBox(height: vSpacing),
                           contactRow(
                             Icons.location_on,
@@ -300,54 +221,21 @@ ${messageController.text}
                     ),
                     SizedBox(height: vSpacing * 2),
                     Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: hPadding,
-                        vertical: vSpacing,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: hPadding, vertical: vSpacing),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          buildTextField(
-                            'First Name',
-                            hintKey: 'John',
-                            screenWidth: screenWidth,
-                            controller: firstNameController,
-                          ),
+                          buildTextField('First Name', hintKey: 'John', screenWidth: screenWidth, controller: firstNameController),
                           SizedBox(height: vSpacing),
-                          buildTextField(
-                            'Last Name',
-                            hintKey: 'Doe',
-                            screenWidth: screenWidth,
-                            controller: lastNameController,
-                          ),
+                          buildTextField('Last Name', hintKey: 'Doe', screenWidth: screenWidth, controller: lastNameController),
                           SizedBox(height: vSpacing * 2),
-                          buildTextField(
-                            'Email',
-                            hintKey: 'you@example.com',
-                            screenWidth: screenWidth,
-                            controller: emailController,
-                          ),
+                          buildTextField('Email', hintKey: 'you@example.com', screenWidth: screenWidth, controller: emailController),
                           SizedBox(height: vSpacing * 2),
-                          buildTextField(
-                            'Phone Number',
-                            hintKey: '+1 012 3456 789',
-                            screenWidth: screenWidth,
-                            controller: phoneController,
-                          ),
+                          buildTextField('Phone Number', hintKey: '+1 012 3456 789', screenWidth: screenWidth, controller: phoneController),
                           SizedBox(height: vSpacing * 2),
-                          buildTextField(
-                            'Project Type',
-                            hintKey: 'Residential',
-                            screenWidth: screenWidth,
-                            controller: projectTypeController,
-                          ),
+                          buildTextField('Project Type', hintKey: 'Residential', screenWidth: screenWidth, controller: projectTypeController),
                           SizedBox(height: vSpacing * 2),
-                          buildTextField(
-                            'Referred_By',
-                            hintKey: 'Jane_Doe',
-                            screenWidth: screenWidth,
-                            controller: referredByController,
-                          ),
+                          buildTextField('Referred_By', hintKey: 'Jane_Doe', screenWidth: screenWidth, controller: referredByController),
                           SizedBox(height: vSpacing * 2),
                           buildTextField(
                             'Describe Your Job',
@@ -362,30 +250,15 @@ ${messageController.text}
                             child: ElevatedButton(
                               onPressed: isLoading ? null : sendEmail,
                               style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                                 backgroundColor: const Color(0xFF2F4164),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 24,
-                                  vertical: 16,
-                                ),
+                                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                               ),
                               child: isLoading
-                                  ? const SizedBox(
-                                      width: 24,
-                                      height: 24,
-                                      child: CircularProgressIndicator(
-                                        color: Colors.white,
-                                        strokeWidth: 2,
-                                      ),
-                                    )
+                                  ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
                                   : TranslatedText(
                                       'Send',
-                                      style: TextStyle(
-                                        fontSize: buttonFontSize,
-                                        color: Colors.white,
-                                      ),
+                                      style: TextStyle(fontSize: buttonFontSize, color: Colors.white),
                                     ),
                             ),
                           ),
@@ -401,27 +274,17 @@ ${messageController.text}
                             flex: 1,
                             child: Container(
                               color: const Color(0xFF2F4164),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: hPadding,
-                              ),
+                              padding: EdgeInsets.symmetric(horizontal: hPadding),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   SizedBox(
                                     width: imageSize,
-                                    child: Image.asset(
-                                      'assets/whiteLogo.png',
-                                      fit: BoxFit.contain,
-                                    ),
+                                    child: Image.asset('assets/whiteLogo.png', fit: BoxFit.contain),
                                   ),
                                   SizedBox(height: vSpacing),
-                                  contactRow(
-                                    Icons.phone,
-                                    '646 - 458 - 0010',
-                                    iconSize: iconSize,
-                                    fontSize: answerFontSize,
-                                  ),
+                                  contactRow(Icons.phone, '646 - 458 - 0010', iconSize: iconSize, fontSize: answerFontSize),
                                   SizedBox(height: vSpacing),
                                   contactRow(
                                     Icons.location_on,
@@ -438,31 +301,18 @@ ${messageController.text}
                             flex: 2,
                             child: SingleChildScrollView(
                               child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: hPadding,
-                                  vertical: 0,
-                                ),
+                                padding: EdgeInsets.symmetric(horizontal: hPadding, vertical: 0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
                                       children: [
                                         Expanded(
-                                          child: buildTextField(
-                                            'First Name',
-                                            hintKey: 'John',
-                                            controller: firstNameController,
-                                            screenWidth: screenWidth,
-                                          ),
+                                          child: buildTextField('First Name', hintKey: 'John', controller: firstNameController, screenWidth: screenWidth),
                                         ),
                                         SizedBox(width: 20),
                                         Expanded(
-                                          child: buildTextField(
-                                            'Last Name',
-                                            hintKey: 'Doe',
-                                            controller: lastNameController,
-                                            screenWidth: screenWidth,
-                                          ),
+                                          child: buildTextField('Last Name', hintKey: 'Doe', controller: lastNameController, screenWidth: screenWidth),
                                         ),
                                       ],
                                     ),
@@ -470,12 +320,7 @@ ${messageController.text}
                                     Row(
                                       children: [
                                         Expanded(
-                                          child: buildTextField(
-                                            'Email',
-                                            hintKey: 'you@example.com',
-                                            controller: emailController,
-                                            screenWidth: screenWidth,
-                                          ),
+                                          child: buildTextField('Email', hintKey: 'you@example.com', controller: emailController, screenWidth: screenWidth),
                                         ),
                                         SizedBox(width: 20),
                                         Expanded(
@@ -501,12 +346,7 @@ ${messageController.text}
                                         ),
                                         SizedBox(width: 20),
                                         Expanded(
-                                          child: buildTextField(
-                                            'Referred_By',
-                                            hintKey: 'Jane_Doe',
-                                            controller: referredByController,
-                                            screenWidth: screenWidth,
-                                          ),
+                                          child: buildTextField('Referred_By', hintKey: 'Jane_Doe', controller: referredByController, screenWidth: screenWidth),
                                         ),
                                       ],
                                     ),
@@ -524,35 +364,15 @@ ${messageController.text}
                                       child: ElevatedButton(
                                         onPressed: isLoading ? null : sendEmail,
                                         style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              20,
-                                            ),
-                                          ),
-                                          backgroundColor: const Color(
-                                            0xFF2F4164,
-                                          ),
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 24,
-                                            vertical: 16,
-                                          ),
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                          backgroundColor: const Color(0xFF2F4164),
+                                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                                         ),
                                         child: isLoading
-                                            ? const SizedBox(
-                                                width: 24,
-                                                height: 24,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                      color: Colors.white,
-                                                      strokeWidth: 2,
-                                                    ),
-                                              )
+                                            ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
                                             : TranslatedText(
                                                 'Send',
-                                                style: TextStyle(
-                                                  fontSize: buttonFontSize,
-                                                  color: Colors.white,
-                                                ),
+                                                style: TextStyle(fontSize: buttonFontSize, color: Colors.white),
                                               ),
                                       ),
                                     ),
