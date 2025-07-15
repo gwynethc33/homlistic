@@ -29,13 +29,13 @@ class _ContactContentState extends State<ContactContent> {
     final String subject = 'Project: ${projectTypeController.text}';
     final String body =
         '''
-Name: ${firstNameController.text} ${lastNameController.text}
-Email: ${emailController.text}
-Phone: ${phoneController.text}
-Referred By Name: ${referredByController.text}
-
-Message:
-${messageController.text}
+Name: ${firstNameController.text} ${lastNameController.text} \n
+Email: ${emailController.text} \n
+Phone: ${phoneController.text} \n
+Referred By Name: ${referredByController.text} \n
+\n
+Message: \n
+${messageController.text} \n
 ''';
     await Get.find<HomlisticClientService>().sendContact(subject, body, 'NzBmNDU2YWYtN2YzYy00NmYwLWIzNzktNzcwNjFiMDlmNWI0');
     firstNameController.clear();
