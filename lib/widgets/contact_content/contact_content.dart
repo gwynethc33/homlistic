@@ -46,7 +46,7 @@ Message         : ${messageController.text}
              <label for="name">Name:</label>
            </td>
            <td>
-             <label for="nname"> ${firstNameController.text} ${lastNameController.text</label>            
+             <label for="nname"> ${firstNameController.text} ${lastNameController.text} </label>            
            </td>
          </tr>
          <tr>  
