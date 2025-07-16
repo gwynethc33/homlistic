@@ -27,7 +27,7 @@ class _ContactContentState extends State<ContactContent> {
 
   Future<void> sendEmail() async {
     final String subject = 'Project: ${projectTypeController.text}';
-    final String body =
+    /*final String body =
         '''
 Name            : ${firstNameController.text} ${lastNameController.text}
 Email           : ${emailController.text}
@@ -35,7 +35,56 @@ Phone           : ${phoneController.text}
 Referred By Name: ${referredByController.text}
 
 Message         : ${messageController.text}
-''';
+''';*/
+    final String body =
+    '
+     <html>
+       <body>
+        <table>
+         <tr>  
+           <td align="left" style="width: 150px;">
+             <label for="name">Name:</label>
+           </td>
+           <td>
+             <label for="nname"> ${firstNameController.text} ${lastNameController.text</label>            
+           </td>
+         </tr>
+         <tr>  
+           <td align="left" style="width: 150px;">
+             <label for="email">Email:</label>
+           </td>
+           <td>
+             <label for="nemail"> ${emailController.text} </label>            
+           </td>
+         </tr>
+         <tr>  
+           <td align="left" style="width: 150px;">
+             <label for="phone">Phone:</label>
+           </td>
+           <td>
+             <label for="nphone"> ${phoneController.text} </label>            
+           </td>
+          </tr>
+          <tr>
+             <td align="left" style="width: 150px;">
+               <label for="rname">Referred by Name:</label>
+             </td>
+             <td>
+               <label for="nrname">  ${referredByController.text} </label>
+             </td>
+           </tr>
+           <tr>
+             <td align="left" style="width: 150px;">
+               <label for="message">Message:</label>
+             </td>
+             <td>
+               <label for="nmessage"> ${messageController.text} </label>
+             </td>
+           </tr>
+         </table>
+       </body>
+     </html>
+    '
     await Get.find<HomlisticClientService>().sendContact(subject, body, 'NzBmNDU2YWYtN2YzYy00NmYwLWIzNzktNzcwNjFiMDlmNWI0');
     firstNameController.clear();
     lastNameController.clear();
