@@ -34,8 +34,7 @@ Email           : ${emailController.text}
 Phone           : ${phoneController.text}
 Referred By Name: ${referredByController.text}
 
-Message:
-    ${messageController.text}
+Message         : ${messageController.text}
 ''';
     await Get.find<HomlisticClientService>().sendContact(subject, body, 'NzBmNDU2YWYtN2YzYy00NmYwLWIzNzktNzcwNjFiMDlmNWI0');
     firstNameController.clear();
