@@ -84,7 +84,7 @@ Message         : ${messageController.text}
          </table>
        </body>
      </html>
-    '''
+    ''';
     await Get.find<HomlisticClientService>().sendContact(subject, body, 'NzBmNDU2YWYtN2YzYy00NmYwLWIzNzktNzcwNjFiMDlmNWI0');
     firstNameController.clear();
     lastNameController.clear();
