@@ -37,7 +37,7 @@ Referred By Name: ${referredByController.text}
 Message         : ${messageController.text}
 ''';*/
     final String body =
-    '
+    '''
      <html>
        <body>
         <table>
@@ -84,7 +84,7 @@ Message         : ${messageController.text}
          </table>
        </body>
      </html>
-    '
+    '''
     await Get.find<HomlisticClientService>().sendContact(subject, body, 'NzBmNDU2YWYtN2YzYy00NmYwLWIzNzktNzcwNjFiMDlmNWI0');
     firstNameController.clear();
     lastNameController.clear();
